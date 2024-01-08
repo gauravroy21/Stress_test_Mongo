@@ -1,0 +1,15 @@
+version: '3'
+services:
+  master:
+    image: gauravroy21/locust_grv
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://master:8089
+  
+  worker:
+    image: gauravroy21/locust_grv
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host master
